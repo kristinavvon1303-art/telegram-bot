@@ -35,7 +35,30 @@ def channel(message):
     )
 
 
-# 3️⃣ получение вопроса
+# 3️⃣ команда /asknereyaabouther
+@bot.message_handler(commands=['asknereyaabouther'])
+def about(message):
+    typing(
+        message.chat.id,
+        (
+            "Хочешь узнать обо мне побольше? Тогда давай поговорим сначала о моих друзьях! "
+            "Я очень их ценю и люблю. Моя лучшая подруга Джи джи, она часто подшучивает надо мной. "
+            "А ещё Браша, с ней весело проводить время, и Кокоа, она мне часто помогает.\n\n"
+
+            "Насчёт других… Тиша меня не очень любит, потому что я иногда её раздражаю водой. "
+            "А Финн однажды кинул в меня рыбу, с тех пор я его избегаю...\n\n"
+
+            "Мой MBTI — INFP.\n\n"
+
+            "Я плохо понимаю намёки, особенно романтические.\n\n"
+
+            "Интересный факт: в моей комнате всегда вода на полу, мне так комфортнее."
+        ),
+        4
+    )
+
+
+# 4️⃣ получение вопроса
 @bot.message_handler(func=lambda message: message.chat.id in waiting_users)
 def get_question(message):
     user_id = message.chat.id
@@ -52,7 +75,7 @@ def get_question(message):
     del waiting_users[user_id]
 
 
-# 4️⃣ ответ админа (через reply)
+# 5️⃣ ответ админа (через reply)
 @bot.message_handler(func=lambda message: message.chat.id in ADMINS)
 def reply(message):
     if message.reply_to_message:
@@ -65,7 +88,7 @@ def reply(message):
             pass
 
 
-# 5️⃣ fallback
+# 6️⃣ fallback
 @bot.message_handler(func=lambda message: True)
 def fallback(message):
     if message.chat.id not in ADMINS:
